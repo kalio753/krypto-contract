@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Transaction.sol": {
+      "content": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.8;\r\n\r\ncontract Transaction {\r\n    uint256 txCount;\r\n\r\n    event Transfer(\r\n        address from,\r\n        address to,\r\n        uint amout,\r\n        string message,\r\n        uint256 timestamp,\r\n        string keyword\r\n    );\r\n\r\n    struct TransferStruct {\r\n        address sender;\r\n        address receiver;\r\n        uint amount;\r\n        string message;\r\n        uint256 timestamp;\r\n        string keyword;\r\n    }\r\n\r\n    TransferStruct[] transactions;\r\n\r\n    function someName(\r\n        address payable receiver,\r\n        uint amount,\r\n        string memory message,\r\n        string memory keyword\r\n    ) public payable {\r\n        txCount += 1;\r\n\r\n        transactions.push(\r\n            TransferStruct(\r\n                msg.sender,\r\n                receiver,\r\n                amount,\r\n                message,\r\n                block.timestamp,\r\n                keyword\r\n            )\r\n        );\r\n\r\n        emit Transfer(\r\n            msg.sender,\r\n            receiver,\r\n            amount,\r\n            message,\r\n            block.timestamp,\r\n            keyword\r\n        );\r\n    }\r\n\r\n    function getAllTransactions()\r\n        public\r\n        view\r\n        returns (TransferStruct[] memory)\r\n    {\r\n        return transactions;\r\n    }\r\n\r\n    function getTransactionsCount() public view returns (uint256) {\r\n        return txCount;\r\n    }\r\n}\r\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

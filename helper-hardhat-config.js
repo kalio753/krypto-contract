@@ -1,0 +1,1 @@
+developmentChains = ["hardhat", "localhost"]
